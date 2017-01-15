@@ -14,3 +14,10 @@ Template.Recipes.helpers({
 		return Recipes.find({});
 	}
 });
+
+// Wrapping up: events to show new recipe form
+Template.Recipes.events({
+	'click  .new-recipe' : ()=> {
+		Session.set('newRecipe', true);
+	}
+});

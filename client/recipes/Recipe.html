@@ -3,7 +3,10 @@
 		<h3>{{name}}</h3>
 		<!-- doc refers to what data is been passing to the form, in this case is THIS recipe -->
 		<!-- updateRecipeId allow to generate unique ID from corresponding element trough a helper -->
-		{{#if $.Session.get 'editMode'}}
+		
+		 <!-- with session variable -->
+		<!-- {{#if $.Session.get 'editMode'}}-->
+		{{#if editMode }}
 			{{>quickForm collection="Recipes" id=updateRecipeId type="update" doc=this autosave=true}}
 		{{else}}
 			<p>{{desc}}</p>
