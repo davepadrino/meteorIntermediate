@@ -4,6 +4,9 @@ Recipes = new Mongo.Collection('recipes');
 Recipes.allow({
 	insert: function(userId, doc) {
 		return !!userId;
+	},
+	update: function(userId, doc) {
+		return !!userId;
 	}
 });
 
@@ -62,5 +65,18 @@ RecipeSchema = new SimpleSchema({
 	}
 });
 
+// Allow to update with current state the element with the ID both passed as parameters
+Meteor.methods({
+	toggleMenuItem: function(id, currenteState){
+		Recipes.update(id, {
+			$set: {
+				inMenu: !currenteState
+			}
+		});
+	},
+	deleteRecipe: function(id){
+		Recipes.remove(id);
+	}
+});
 
 Recipes.attachSchema( RecipeSchema );

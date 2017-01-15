@@ -1,14 +1,24 @@
 <template name="Recipe">
-	<article class="recipe">
+	<article class="recipe {{#if inMenu}}in-menu{{/if}}">
 		<h3>{{name}}</h3>
-		<p>{{desc}}</p>
-		<p>
-			{{#each ingredients}}
-				<span class="ingredient">
-					{{name}} - {{amount}}
-				</span>
-			{{/each}}
-		</p>
-		<a href="/recipe/{{_id}}">View Detailss</a>
+		<!-- doc refers to what data is been passing to the form, in this case is THIS recipe -->
+		<!-- updateRecipeId allow to generate unique ID from corresponding element trough a helper -->
+		{{#if $.Session.get 'editMode'}}
+			{{>quickForm collection="Recipes" id=updateRecipeId type="update" doc=this autosave=true}}
+		{{else}}
+			<p>{{desc}}</p>
+			<p>
+				{{#each ingredients}}
+					<span class="ingredient">
+						{{name}} - {{amount}}
+					</span>
+				{{/each}}
+			</p>
+			<a href="/recipe/{{_id}}">View Details</a>		
+			<button class="btn-primary toggle-menu add-to-menu">Add to menu</button>
+			<button class="btn-deny toggle-menu remove-from-menu ">Remove from menu</button>
+		{{/if}}
+		<i class="fa fa-pencil"></i>
+		<i class="fa fa-trash"></i>
 	</article>
 </template>
